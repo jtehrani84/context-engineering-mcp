@@ -44,7 +44,7 @@
         .stagger-6 { transition-delay: 0.6s; }
 
         .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
+            background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -114,12 +114,10 @@
         .flow-dot-delay { animation-delay: 0.5s; }
         .flow-dot-delay-2 { animation-delay: 1s; }
 
-        .hero-bg {
-            background:
-                radial-gradient(ellipse at 30% 50%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 20%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(52, 211, 153, 0.06) 0%, transparent 50%),
-                linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+        .hero-gradient {
+            background: radial-gradient(ellipse at 30% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                        linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
         }
     </style>
 </head>
@@ -147,29 +145,28 @@
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero-bg py-28 px-6">
-        <div class="max-w-5xl mx-auto text-center">
-            <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-8 fade-up">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                <span class="text-xs font-semibold tracking-wider text-blue-300 uppercase">Part 2 of 5 &mdash; Context Engineering for SEs</span>
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-[85vh] flex items-center relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 py-24 relative z-10">
+            <div class="max-w-3xl">
+                <p class="text-blue-400 font-mono text-sm tracking-wider mb-6 fade-up">CONTEXT ENGINEERING SERIES &mdash; PART 2</p>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 fade-up stagger-1">
+                    Teaching Claude to <span class="gradient-text">Connect</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 leading-relaxed mb-8 fade-up stagger-2">
+                    Part 1 gave Claude memory. But memory without hands is just a journal.
+                    MCP servers give Claude hands &mdash; direct access to your CRM, your code, your docs, and your channels.
+                </p>
+                <p class="text-lg text-gray-400 fade-up stagger-3">
+                    10 servers. 40+ tools. One protocol. And a case study where corporate IT said "no Connected App" &mdash; so we built around it.
+                </p>
             </div>
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 fade-up stagger-1">
-                Teaching Claude to <span class="gradient-text">Connect</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8 fade-up stagger-2">
-                Part 1 gave Claude memory. But memory without hands is just a journal.<br>
-                MCP servers give Claude hands &mdash; direct access to your CRM, your code, your docs, and your channels.
-            </p>
-            <p class="text-lg text-gray-400 max-w-2xl mx-auto fade-up stagger-3">
-                10 servers. 40+ tools. One protocol. And a case study where corporate IT said "no Connected App" &mdash; so we built around it.
-            </p>
         </div>
     </section>
 
     <!-- The Problem -->
     <section class="py-24 px-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">The Problem</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Smart but Isolated</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
@@ -204,7 +201,7 @@
 
     <!-- What is MCP -->
     <section class="py-24 px-6 bg-slate-800/30">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-purple-400/70 uppercase mb-4 fade-up">The Protocol</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">MCP in 30 Seconds</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
@@ -409,7 +406,7 @@
 
     <!-- Case Study: Org62 -->
     <section class="py-24 px-6 bg-slate-800/30">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-red-400/70 uppercase mb-4 fade-up">Case Study</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">The Impossible Connection</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-4 fade-up stagger-2">
@@ -568,7 +565,7 @@
 
     <!-- Tools Deep Dive -->
     <section class="py-24 px-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-emerald-400/70 uppercase mb-4 fade-up">The Meridian MCP Server</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">40 Tools. Three Categories.</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
@@ -640,7 +637,7 @@
 
     <!-- Before / After -->
     <section class="py-24 px-6 bg-slate-800/30">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">Impact</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-12 fade-up stagger-1">Before vs. After</h2>
 
@@ -711,7 +708,7 @@
 
     <!-- Slack MCP spotlight -->
     <section class="py-24 px-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-purple-400/70 uppercase mb-4 fade-up">New Addition</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Slack MCP &mdash; The Second Data Plane</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
@@ -757,7 +754,7 @@
 
     <!-- Two Data Planes -->
     <section class="py-24 px-6 bg-slate-800/30">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-amber-400/70 uppercase mb-4 fade-up">Architectural Insight</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Two Data Planes. One Account.</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-4 fade-up stagger-2">
@@ -868,7 +865,7 @@
 
     <!-- Get Started -->
     <section class="py-24 px-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">Build Your Own</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Start with 3 Servers in 15 Minutes</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
@@ -943,7 +940,7 @@
 
     <!-- Series -->
     <section class="py-24 px-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">The Series</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-12 fade-up stagger-1">Context Engineering for SEs</h2>
 
@@ -985,16 +982,18 @@
     </section>
 
     <!-- Footer -->
-    <section class="py-16 px-6 border-t border-white/5">
-        <div class="max-w-5xl mx-auto text-center">
-            <p class="text-white/30 text-sm mb-2">
-                Built by John Tehrani &mdash; Principal Solutions Engineer, Salesforce
-            </p>
-            <p class="text-white/20 text-xs">
-                This document was written collaboratively with Claude Code using the MCP servers it describes.
-            </p>
+    <footer class="border-t border-slate-700/50 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <p class="text-gray-400 text-sm">Context Engineering Series &mdash; Part 2 of 5</p>
+                <p class="text-gray-500 text-xs mt-1">Built by John Tehrani &middot; Principal Solutions Engineer, Salesforce</p>
+            </div>
+            <div class="flex items-center gap-6 text-sm text-gray-500">
+                <a href="https://jtehrani84.github.io/claude-context-architecture/" class="hover:text-gray-300 transition-colors">Part 1: Memory</a>
+                <a href="https://jtehrani84.github.io/context-engineering-agentscript/" class="hover:text-gray-300 transition-colors">Part 1A: Case Study</a>
+            </div>
         </div>
-    </section>
+    </footer>
 
     <script>
         const observer = new IntersectionObserver((entries) => {
