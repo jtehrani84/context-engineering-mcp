@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teaching Claude to Connect | MCP Servers for Solution Engineers</title>
+    <title>Teaching Claude to Connect — Context Engineering, Part 3</title>
     <meta name="description" content="Part 3 of the Context Engineering series. How MCP servers extend Claude Code from a smart assistant into a connected platform — with a real-world case study of connecting to corporate Salesforce without a Connected App.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,21 +126,18 @@
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 backdrop-blur-lg bg-slate-900/80 border-b border-slate-700/50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></div>
-                <span class="text-sm font-medium text-gray-400">Context Engineering Series</span>
-                <span class="text-slate-600 mx-1">/</span>
-                <span class="text-sm font-semibold text-gray-200">Part 3</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <a href="https://jtehrani84.github.io/claude-context-architecture/" target="_blank" rel="noopener"
-                   class="text-sm text-gray-400 hover:text-blue-300 transition-colors">
-                    Part 1: Memory &rarr;
-                </a>
-                <a href="https://jtehrani84.github.io/context-engineering-agentscript/" target="_blank" rel="noopener"
-                   class="text-sm text-gray-400 hover:text-blue-300 transition-colors">
-                    Part 2: AgentScript &rarr;
-                </a>
+            <span class="text-sm font-mono text-gray-500">context-engineering <span class="text-blue-400">//</span> part-3</span>
+            <div class="flex items-center gap-3 sm:gap-4 text-xs font-mono text-gray-500">
+                <a href="https://jtehrani84.github.io/claude-context-architecture/" class="hover:text-blue-300 transition hidden sm:inline">1</a>
+                <a href="https://jtehrani84.github.io/context-engineering-agentscript/" class="hover:text-blue-300 transition hidden sm:inline">2</a>
+                <span class="text-blue-400 font-semibold">3</span>
+                <a href="https://jtehrani84.github.io/context-engineering-knowledge-graph/" class="hover:text-blue-300 transition hidden sm:inline">4</a>
+                <a href="https://jtehrani84.github.io/context-engineering-skills/" class="hover:text-blue-300 transition hidden sm:inline">5</a>
+                <a href="https://jtehrani84.github.io/claude-context-architecture/from-memory-to-operating-system.html" class="hover:text-blue-300 transition hidden sm:inline">6</a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-7/" class="hover:text-blue-300 transition">7</a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-8/" class="hover:text-blue-300 transition">8</a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-9/" class="hover:text-blue-300 transition">9</a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-10/" class="hover:text-blue-300 transition">10</a>
             </div>
         </div>
     </nav>
@@ -149,16 +146,16 @@
     <section class="hero-gradient min-h-[85vh] flex items-center relative overflow-hidden">
         <div class="max-w-6xl mx-auto px-6 py-24 relative z-10">
             <div class="max-w-3xl">
-                <p class="text-blue-400 font-mono text-sm tracking-wider mb-6 fade-up">CONTEXT ENGINEERING SERIES &mdash; PART 3</p>
+                <p class="text-blue-400 font-mono text-sm tracking-wider uppercase mb-6 fade-up">Context Engineering Series &middot; Part 3</p>
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 fade-up stagger-1">
                     Teaching Claude to <span class="gradient-text">Connect</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-300 leading-relaxed mb-8 fade-up stagger-2">
                     Part 1 gave Claude memory, but memory without hands is just a journal.
-                    MCP servers give Claude hands &mdash; direct access to your CRM, your code, your docs, and your channels.
+                    MCP servers give Claude hands... direct access to your CRM, your code, your docs, and your channels.
                 </p>
                 <p class="text-lg text-gray-400 fade-up stagger-3">
-                    9 servers, 120+ tools, one protocol, and a case study where the standard integration path didn't exist &mdash; so we built around it.
+                    9 servers, 120+ tools, one protocol, and a case study where the standard integration path didn't exist, so we built around it.
                 </p>
             </div>
         </div>
@@ -170,7 +167,7 @@
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">The Problem</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Smart but Isolated</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
-                After Part 1, Claude remembers everything &mdash; your corrections, your architecture decisions, your product naming rules. But when you ask it to pull up the Roblox account, or check what's in Slack, or look at that PR, it can't, because none of that lives in memory.
+                After Part 1, Claude remembers everything, your corrections, your architecture decisions, your product naming rules. But ask it to pull up the Roblox account, or check what's in Slack, or look at that PR, and it can't, because none of that lives in memory.
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -266,7 +263,7 @@
             <div class="text-xs font-semibold tracking-widest text-emerald-400/70 uppercase mb-4 fade-up">The Setup</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-up stagger-1">9 Servers, 120+ Tools</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
-                Each server extends Claude into a different domain &mdash; some open source, some commercial, and one custom-built for our Salesforce intelligence platform.
+                Each server extends Claude into a different domain, some open source, some commercial, and one custom-built for our Salesforce intelligence platform.
             </p>
 
             <!-- Category: Code & Repos -->
@@ -281,7 +278,7 @@
                         <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">stdio</span>
                     </div>
                     <p class="text-sm text-gray-400">PRs, issues, code search, file reads, branch management. Claude reviews PRs, creates issues, and pushes code without leaving the terminal.</p>
-                    <div class="mt-3 text-xs text-gray-500 font-mono">20+ tools &mdash; create_pull_request, search_code, list_issues...</div>
+                    <div class="mt-3 text-xs text-gray-500 font-mono">20+ tools, including create_pull_request, search_code, list_issues...</div>
                 </div>
             </div>
 
@@ -334,8 +331,8 @@
                             </div>
                             <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">stdio</span>
                         </div>
-                        <p class="text-sm text-gray-400">Read channels, search messages, send messages, create canvases. Claude can draft a Slack post, find a thread, or summarize a channel &mdash; all from the terminal.</p>
-                        <div class="mt-3 text-xs text-gray-500 font-mono">15+ tools &mdash; search_public, read_channel, send_message, create_canvas...</div>
+                        <p class="text-sm text-gray-400">Read channels, search messages, send messages, create canvases. Claude can draft a Slack post, find a thread, or summarize a channel, all from the terminal.</p>
+                        <div class="mt-3 text-xs text-gray-500 font-mono">15+ tools, including search_public, read_channel, send_message, create_canvas...</div>
                     </div>
                     <div class="server-card glass-card rounded-xl p-5 fade-up stagger-2">
                         <div class="flex items-start justify-between mb-3">
@@ -346,7 +343,7 @@
                             <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">stdio</span>
                         </div>
                         <p class="text-sm text-gray-400">Browser automation that navigates pages, clicks elements, takes screenshots, and fills forms, so Claude can test a deployed app or screenshot a live UI for review.</p>
-                        <div class="mt-3 text-xs text-gray-500 font-mono">20+ tools &mdash; navigate, click, snapshot, screenshot, type...</div>
+                        <div class="mt-3 text-xs text-gray-500 font-mono">20+ tools, including navigate, click, snapshot, screenshot, type...</div>
                     </div>
                 </div>
             </div>
@@ -363,7 +360,7 @@
                             </div>
                             <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full">stdio</span>
                         </div>
-                        <p class="text-sm text-gray-400">1000+ pre-built scrapers for X/Twitter feeds, LinkedIn profiles, and product data &mdash; the workhorse behind the daily intelligence pipeline.</p>
+                        <p class="text-sm text-gray-400">1000+ pre-built scrapers for X/Twitter feeds, LinkedIn profiles, and product data, the workhorse behind the daily intelligence pipeline.</p>
                     </div>
                     <div class="server-card glass-card rounded-xl p-5 fade-up stagger-2">
                         <div class="flex items-start justify-between mb-3">
@@ -373,7 +370,7 @@
                             </div>
                             <span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full">HTTP</span>
                         </div>
-                        <p class="text-sm text-gray-400">Semantic search across all Salesforce documentation, so when Claude needs Apex governor limits or Flow best practices, it checks the source directly.</p>
+                        <p class="text-sm text-gray-400">Semantic search across all Salesforce documentation, so when Claude needs Apex governor limits or the right way to build a Flow, it checks the source directly.</p>
                     </div>
                     <div class="server-card glass-card rounded-xl p-5 border-2 border-emerald-500/30 fade-up stagger-3">
                         <div class="flex items-start justify-between mb-3">
@@ -384,7 +381,7 @@
                             <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full">custom</span>
                         </div>
                         <p class="text-sm text-gray-400">40 tools wrapping our intelligence platform and corporate CRM, and the crown jewel of the stack, bringing account briefs, pipeline data, competitive intel, and RAG search all native to Claude.</p>
-                        <div class="mt-3 text-xs text-emerald-500/60 font-mono">40 tools &mdash; the case study below</div>
+                        <div class="mt-3 text-xs text-emerald-500/60 font-mono">40 tools, the case study below</div>
                     </div>
                 </div>
             </div>
@@ -399,7 +396,7 @@
                         </div>
                         <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded-full">plugin</span>
                     </div>
-                    <p class="text-sm text-gray-400">Not an MCP server &mdash; a Claude Code plugin. Compresses large tool output ~98% into a local SQLite FTS5 index. Only search-matched excerpts re-enter the conversation. Keeps raw build logs, test suites, and web fetches out of your context window.</p>
+                    <p class="text-sm text-gray-400">Not an MCP server, a Claude Code plugin. It compresses large tool output ~98% into a local SQLite FTS5 index, and only the search-matched excerpts re-enter the conversation, so raw build logs, test suites, and web fetches stay out of your context window.</p>
                     <div class="mt-3 text-xs text-gray-500 font-mono">ctx_batch_execute, ctx_search, ctx_execute, ctx_fetch_and_index...</div>
                 </div>
             </div>
@@ -412,7 +409,7 @@
             <div class="text-xs font-semibold tracking-widest text-red-400/70 uppercase mb-4 fade-up">Case Study</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">The Impossible Connection</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-4 fade-up stagger-2">
-                Salesforce's corporate CRM (Org62) holds everything &mdash; pipeline, contacts, contracts, installed products, consumption data. It's the single source of truth for every deal.
+                Salesforce's corporate CRM (Org62) holds everything, pipeline, contacts, contracts, installed products, consumption data. It's the single source of truth for every deal.
             </p>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-3">
                 We needed it inside Claude, but getting a Connected App in Org62 requires a business technology review that doesn't scale to individual SE projects.
@@ -440,7 +437,7 @@
                         <span class="constraint-x mt-0.5">&times;</span>
                         <div>
                             <div class="font-semibold text-white">No direct middleware connection</div>
-                            <p class="text-sm text-gray-400 mt-1">Our Cloud Run middleware can't query Org62 either &mdash; no JWT, no OAuth, no cert, just a hard wall between production infra and the corporate CRM.</p>
+                            <p class="text-sm text-gray-400 mt-1">Our Cloud Run middleware can't query Org62 either. No JWT, no OAuth, no cert, just a hard wall between production infra and the corporate CRM.</p>
                         </div>
                     </div>
                 </div>
@@ -448,7 +445,7 @@
 
             <!-- The Solution -->
             <div class="glass-card rounded-xl p-8 mb-8 border-l-4 border-emerald-500/60 fade-up stagger-4">
-                <h3 class="text-xl font-bold text-white mb-6">The Solution &mdash; sf CLI + MCP</h3>
+                <h3 class="text-xl font-bold text-white mb-6">The Solution, sf CLI + MCP</h3>
                 <div class="space-y-4">
                     <div class="flex items-start gap-4">
                         <span class="solution-check mt-0.5">&#10003;</span>
@@ -543,7 +540,7 @@
 
                 <!-- Cache layer -->
                 <div class="mt-8 pt-8 border-t border-slate-700/50">
-                    <div class="text-sm font-semibold text-amber-400 mb-4 text-center uppercase tracking-wider">Cache-Forward &mdash; One Fetch, Available Everywhere</div>
+                    <div class="text-sm font-semibold text-amber-400 mb-4 text-center uppercase tracking-wider">Cache-Forward, One Fetch Available Everywhere</div>
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-sm">
                         <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-lg px-4 py-3 text-center">
                             <div class="text-emerald-400 font-semibold text-xs">MCP Gathers</div>
@@ -625,12 +622,12 @@
             <div class="mt-12 fade-up stagger-4">
                 <h3 class="text-lg font-semibold text-white mb-4">What it looks like in practice</h3>
                 <div class="code-block p-6 text-sm leading-relaxed">
-                    <div class="text-gray-500 mb-3 font-sans text-xs">A real conversation with a real account &mdash; natural language in, structured data out.</div>
+                    <div class="text-gray-500 mb-3 font-sans text-xs">A real conversation with a real account. Natural language in, structured data out.</div>
                     <div class="mb-2"><span class="text-blue-400">me:</span> <span class="text-gray-300">What does Roblox own in our CRM and when do their contracts renew?</span></div>
                     <div class="mb-1 text-gray-500 text-xs">&nbsp;&nbsp;// Claude calls crm_asset_lines("Roblox") + crm_contracts("Roblox")</div>
                     <div class="mb-4 text-gray-500 text-xs">&nbsp;&nbsp;// Both resolve via sf CLI &rarr; Org62 SOQL &rarr; structured JSON back</div>
-                    <div class="mb-2"><span class="text-emerald-400">claude:</span> <span class="text-gray-300">Roblox has multiple active products across 2 account variants &mdash; core CRM, Data Cloud, Event Monitoring, and more. Multi-year enterprise deal with staggered renewal dates...</span></div>
-                    <div class="text-gray-500 text-xs">&nbsp;&nbsp;// 37 asset line items returned &mdash; exact products, quantities, contract periods</div>
+                    <div class="mb-2"><span class="text-emerald-400">claude:</span> <span class="text-gray-300">Roblox has multiple active products across 2 account variants, core CRM, Data Cloud, Event Monitoring, and more. Multi-year enterprise deal with staggered renewal dates...</span></div>
+                    <div class="text-gray-500 text-xs">&nbsp;&nbsp;// 37 asset line items returned, exact products, quantities, contract periods</div>
                     <div class="text-gray-500 text-xs">&nbsp;&nbsp;// Claude synthesizes into a unified view with whitespace analysis</div>
                 </div>
             </div>
@@ -712,9 +709,9 @@
     <section class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-xs font-semibold tracking-widest text-purple-400/70 uppercase mb-4 fade-up">New Addition</div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Slack MCP &mdash; The Second Data Plane</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Slack MCP, the Second Data Plane</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
-                The newest server in the stack, and it turned out to matter more than expected. Claude can now search Slack, read channels and threads, send messages, and create canvases, but the real value is in what it surfaces, the unstructured human signal that no CRM captures.
+                This was the newest server in the stack, and it turned out to matter more than I expected. Claude can now search Slack, read channels and threads, send messages, and create canvases, but what it really surfaces is the unstructured human signal that no CRM ever captures.
             </p>
 
             <div class="grid md:grid-cols-2 gap-8">
@@ -723,7 +720,7 @@
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li class="flex items-start gap-3">
                             <span class="text-purple-400 font-bold mt-0.5">&bull;</span>
-                            <span><span class="text-white">Search across channels</span> &mdash; find that conversation about a deal strategy from last week without scrolling</span>
+                            <span><span class="text-white">Search across channels</span>, find that conversation about a deal strategy from last week without scrolling</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-purple-400 font-bold mt-0.5">&bull;</span>
@@ -760,7 +757,7 @@
             <div class="text-xs font-semibold tracking-widest text-amber-400/70 uppercase mb-4 fade-up">Architectural Insight</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Two Data Planes, One Account</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-4 fade-up stagger-2">
-                After authenticating to corporate Slack, I wondered whether Slack MCP made the Meridian CRM tools redundant &mdash; if I can search Slack for "Roblox," why query Org62 separately?
+                After I authenticated to corporate Slack, I started wondering whether Slack MCP had just made the Meridian CRM tools redundant... if I can search Slack for "Roblox," why bother querying Org62 separately?
             </p>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-3">
                 I tested it, and the answer is a definitive <span class="text-white font-semibold">no</span>, for a reason that reveals something important about how MCP servers compose.
@@ -842,7 +839,7 @@
             <div class="glass-card rounded-xl p-8 border-l-4 border-amber-500/60 mb-12 fade-up stagger-3">
                 <h3 class="text-lg font-semibold text-amber-400 mb-3">The Architectural Insight</h3>
                 <p class="text-gray-300 leading-relaxed mb-4">
-                    MCP servers don't need to talk to each other, or even know the others exist. <span class="text-white font-semibold">Claude is the integration layer</span> &mdash; it decides which servers to call and synthesizes the results.
+                    MCP servers don't need to talk to each other, or even know the others exist. <span class="text-white font-semibold">Claude is the integration layer</span>, and it's the thing that decides which servers to call and stitches the results back together.
                 </p>
                 <p class="text-gray-300 leading-relaxed">
                     Think of it like Unix pipes, where each MCP server is a specialized command (<code class="text-xs bg-slate-700/60 px-1.5 py-0.5 rounded text-amber-300">grep</code>, <code class="text-xs bg-slate-700/60 px-1.5 py-0.5 rounded text-amber-300">sort</code>, <code class="text-xs bg-slate-700/60 px-1.5 py-0.5 rounded text-amber-300">awk</code>) and the LLM is the pipe operator <code class="text-xs bg-slate-700/60 px-1.5 py-0.5 rounded text-amber-300 font-bold">|</code> that chains them into <span class="text-white">composability without coupling.</span>
@@ -871,7 +868,7 @@
             <div class="text-xs font-semibold tracking-widest text-blue-400/70 uppercase mb-4 fade-up">Build Your Own</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-up stagger-1">Start with 3 Servers in 15 Minutes</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12 fade-up stagger-2">
-                You don't need 9 servers on day one &mdash; start with the three that deliver the most value for SE work, then add more as you need them.
+                You don't need 9 servers on day one, so start with the three that pull the most weight for SE work, and add the rest as you go.
             </p>
 
             <div class="space-y-6">
@@ -932,7 +929,7 @@
                         <div class="flex-1">
                             <h3 class="font-semibold text-white mb-2">Level Up &mdash; Build a Custom Server</h3>
                             <p class="text-sm text-gray-400 mb-3">Once you see the pattern, you can wrap any API, and our Meridian server is ~400 lines of Node.js, where each tool is a function that takes params, calls an API, and returns JSON, while the MCP SDK handles the protocol.</p>
-                            <p class="text-sm text-gray-400">If your team has internal APIs, dashboards, or data sources that Claude should access &mdash; a custom MCP server is 2-4 hours of work for a developer who's seen the pattern.</p>
+                            <p class="text-sm text-gray-400">If your team has internal APIs, dashboards, or data sources Claude should reach, a custom MCP server is 2-4 hours of work for a developer who's seen the pattern.</p>
                         </div>
                     </div>
                 </div>
@@ -967,27 +964,64 @@
                     <p class="text-xs text-gray-400">Connecting to your systems</p>
                     <div class="mt-3 text-xs text-blue-400">You are here</div>
                 </div>
-                <div class="glass-card rounded-xl p-5 fade-up stagger-4 opacity-60">
-                    <div class="text-xs text-gray-600 mb-2">Part 4</div>
-                    <h3 class="font-semibold text-gray-500 text-sm mb-1">Commands</h3>
-                    <p class="text-xs text-gray-600">SE-specific workflows</p>
-                    <div class="mt-3 text-xs text-gray-600">Coming soon</div>
-                </div>
+                <a href="https://jtehrani84.github.io/context-engineering-knowledge-graph/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-4 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 4</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Knowledge Graph</h3>
+                    <p class="text-xs text-gray-500">Entities and relationships</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/context-engineering-skills/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-5 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 5</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Skills</h3>
+                    <p class="text-xs text-gray-500">Packaged, reusable expertise</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/claude-context-architecture/from-memory-to-operating-system.html" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-6 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 6</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Operating System</h3>
+                    <p class="text-xs text-gray-500">From memory to an OS</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-7/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-1 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 7</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">The Harness</h3>
+                    <p class="text-xs text-gray-500">A guard that grades the work</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-8/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-2 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 8</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Safe and Portable</h3>
+                    <p class="text-xs text-gray-500">Gated, portable, human-held key</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-9/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-3 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 9</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Improves Itself</h3>
+                    <p class="text-xs text-gray-500">Autonomy on a leash</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
+                <a href="https://jtehrani84.github.io/context-engineering-part-10/" target="_blank" rel="noopener"
+                   class="glass-card rounded-xl p-5 hover:border-blue-500/30 transition-all duration-200 fade-up stagger-4 group">
+                    <div class="text-xs text-gray-500 mb-2">Part 10</div>
+                    <h3 class="font-semibold text-gray-300 group-hover:text-white transition-colors text-sm mb-1">Into the Platform</h3>
+                    <p class="text-xs text-gray-500">Where it belongs</p>
+                    <div class="mt-3 text-xs text-emerald-400">Complete &rarr;</div>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="border-t border-slate-700/50 py-12 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <p class="text-gray-400 text-sm">Context Engineering Series &mdash; Part 3 of 5</p>
-                <p class="text-gray-500 text-xs mt-1">Built by John Tehrani &middot; Principal Solutions Engineer, Salesforce</p>
-            </div>
-            <div class="flex items-center gap-6 text-sm text-gray-500">
-                <a href="https://jtehrani84.github.io/claude-context-architecture/" class="hover:text-gray-300 transition-colors">Part 1: Memory</a>
-                <a href="https://jtehrani84.github.io/context-engineering-agentscript/" class="hover:text-gray-300 transition-colors">Part 2: AgentScript</a>
-            </div>
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-mono text-gray-500">
+            <span>Context Engineering Series &middot; Part 3 &middot; John Tehrani</span>
+            <span>Claude is the integration layer.</span>
         </div>
     </footer>
 
